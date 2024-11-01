@@ -1,0 +1,546 @@
+[
+    {
+        "id": "4181854c264581d3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d606f0e987c4899a",
+        "type": "mqtt-broker",
+        "name": "Invernadero",
+        "broker": "broker.emqx.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "795328636444aeba",
+        "type": "ui_tab",
+        "name": "Invernadero LIA Chillán - 2024",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "64429f95fee41e36",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#03d886",
+                "baseFont": "Arial Black,Arial Black,Gadget,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#03d886",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#03d886",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#2bfcac",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#03d886",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Arial Black,Arial Black,Gadget,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "c6546619cbbbe06d",
+        "type": "ui_group",
+        "name": "Invernadero",
+        "tab": "795328636444aeba",
+        "order": 1,
+        "disp": true,
+        "width": "30",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b07e4f7358971267",
+        "type": "ui_spacer",
+        "z": "4181854c264581d3",
+        "name": "spacer",
+        "group": "c6546619cbbbe06d",
+        "order": 11,
+        "width": "7",
+        "height": "1"
+    },
+    {
+        "id": "50bbcb10a0d20604",
+        "type": "ui_spacer",
+        "z": "4181854c264581d3",
+        "name": "spacer",
+        "group": "c6546619cbbbe06d",
+        "order": 13,
+        "width": "7",
+        "height": "1"
+    },
+    {
+        "id": "ce22d4d6257af838",
+        "type": "mqtt in",
+        "z": "4181854c264581d3",
+        "name": "Invernadero",
+        "topic": "invernadero/01",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d606f0e987c4899a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 700,
+        "wires": [
+            [
+                "0416e99a315ecc62"
+            ]
+        ]
+    },
+    {
+        "id": "0416e99a315ecc62",
+        "type": "function",
+        "z": "4181854c264581d3",
+        "name": "Sensores",
+        "func": "// Los datos vienen como una cadena, eliminamos los saltos de línea y los convertimos a un array\nlet data = msg.payload.trim().split(',').map(parseFloat);\n\n// Asignamos los datos a las variables correspondientes\nlet humedad_suelo_1 = data[0];\nlet humedad_suelo_2 = data[1];\nlet humedad_suelo_3 = data[2];\nlet humedad_suelo_4 = data[3];\nlet humedad_suelo_5 = data[4];\nlet hum_interna = data[5];  // Temperatura del sensor DHT11 interno\nlet temp_interna = data[6];   // Humedad del sensor DHT11 interno\nlet hum_externa = data[7];  // Temperatura del sensor DHT11 externo\nlet temp_externa = data[8];   // Humedad del sensor DHT11 externo\nlet estado_rele = data[9]; // Estado del relé\n\n// Creamos un nuevo objeto con los valores\nmsg.payload = {\n    humedad_suelo_1: humedad_suelo_1,\n    humedad_suelo_2: humedad_suelo_2,\n    humedad_suelo_3: humedad_suelo_3,\n    humedad_suelo_4: humedad_suelo_4,\n    humedad_suelo_5: humedad_suelo_5,\n    temp_interna: temp_interna,\n    hum_interna: hum_interna,\n    temp_externa: temp_externa,\n    hum_externa: hum_externa,\n};\n\n// Agregamos el estado del relé y el mensaje correspondiente\nmsg.estado_rele = estado_rele;\nmsg.mensaje_riego = estado_rele === 1 ? \"Apagado\" : \"Regando\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 700,
+        "wires": [
+            [
+                "022cebfbb694f3fb",
+                "12d49a4a6cc88b3d",
+                "09f382f27f63c4f4",
+                "8cf3d9cee4e75759",
+                "461574d5acac579f",
+                "ebf99a5fed9ec31e",
+                "531e8faafb097421",
+                "139a40a2e55f6ec2",
+                "ecfbd46981e8e57f",
+                "b50b10c98070084c",
+                "e62701fb984fe77c",
+                "f1be942b7d75f2af"
+            ]
+        ]
+    },
+    {
+        "id": "022cebfbb694f3fb",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 2,
+        "width": "6",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Suelo 2",
+        "label": "%",
+        "format": "{{msg.payload.humedad_suelo_2}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#00ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "12d49a4a6cc88b3d",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 4,
+        "width": "6",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Suelo 3",
+        "label": "%",
+        "format": "{{msg.payload.humedad_suelo_3}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#00ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "09f382f27f63c4f4",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 3,
+        "width": "6",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Suelo 4",
+        "label": "%",
+        "format": "{{msg.payload.humedad_suelo_4}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#00ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "8cf3d9cee4e75759",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 5,
+        "width": "6",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Suelo 5",
+        "label": "%",
+        "format": "{{msg.payload.humedad_suelo_5}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#00ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "461574d5acac579f",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 6,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Interna",
+        "label": "%",
+        "format": "{{msg.payload.hum_interna}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "ebf99a5fed9ec31e",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 7,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Temperatura Interna",
+        "label": "° C",
+        "format": "{{msg.payload.temp_interna}}",
+        "min": 0,
+        "max": "45",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "531e8faafb097421",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 8,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Externa",
+        "label": "%",
+        "format": "{{msg.payload.hum_externa}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "139a40a2e55f6ec2",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 9,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Temperatura Externa",
+        "label": "° C",
+        "format": "{{msg.payload.temp_externa}}",
+        "min": 0,
+        "max": "45",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "ecfbd46981e8e57f",
+        "type": "ui_gauge",
+        "z": "4181854c264581d3",
+        "name": "",
+        "group": "c6546619cbbbe06d",
+        "order": 1,
+        "width": "6",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Humedad Suelo 1",
+        "label": "%",
+        "format": "{{msg.payload.humedad_suelo_1}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#43cb3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b50b10c98070084c",
+        "type": "ui_text",
+        "z": "4181854c264581d3",
+        "group": "c6546619cbbbe06d",
+        "order": 10,
+        "width": "5",
+        "height": "3",
+        "name": "",
+        "label": "Estado Riego:",
+        "format": "{{msg.mensaje_riego}}",
+        "layout": "row-center",
+        "className": "",
+        "style": true,
+        "font": "Arial Black,Arial Black,Gadget,sans-serif",
+        "fontSize": "15",
+        "color": "#03d886",
+        "x": 660,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "e62701fb984fe77c",
+        "type": "ui_template",
+        "z": "4181854c264581d3",
+        "group": "c6546619cbbbe06d",
+        "name": "Santo Tomas",
+        "order": 14,
+        "width": "5",
+        "height": "5",
+        "format": "<div>\n    <img src=\"https://i0.wp.com/gindi.cl/wp-content/uploads/2023/12/logotipo-santo-tomas-horizontal.png?ssl=1\" alt=\"Logo Santo Tomas\" style=\"width:100%; max-width:200px;\"/>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 650,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f1be942b7d75f2af",
+        "type": "ui_template",
+        "z": "4181854c264581d3",
+        "group": "c6546619cbbbe06d",
+        "name": "LIA",
+        "order": 12,
+        "width": "5",
+        "height": "5",
+        "format": "<div style=\"display: flex; align-items: center;\">\n    <img src=\"https://raw.githubusercontent.com/XoroVK/a/main/Presentaci%C3%B3n_apicultura___1_-removebg-preview.png\" alt=\"LIA Chillan\" style=\"width:300%; max-width:200px;\"/>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 630,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    }
+]
